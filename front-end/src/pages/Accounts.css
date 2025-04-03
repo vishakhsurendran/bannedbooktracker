@@ -1,4 +1,4 @@
-.book-details {
+.accounts-page {
   height: 800px;
   display: flex;
   flex-wrap: wrap;
@@ -10,31 +10,49 @@
   font-family: Inter, sans-serif;
 }
 
-.book-cover {
+.profile-picture {
   width: 200px;
-  height: 300px;
+  height: 200px;
   background-color: #8bc34a;
   color: white;
   display: flex;
   justify-content: center;
   align-items: center;
   font-weight: bold;
+  border-radius: 50%;
 }
 
-.book-info {
+.user-details {
   max-width: 600px;
-  padding: 20px;
   background-color: #e0e0e0;
+  padding: 20px;
   border-radius: 10px;
+  flex: 1;
 }
 
-.book-info h1 {
-  font-size: 24px;
+.user-field {
+  margin-bottom: 15px;
+}
+
+.user-field label {
+  font-size: 18px;
   color: #333;
 }
 
-.book-info p {
-  margin: 10px 0;
+.field-input {
+  background-color: #ccc;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 5px;
+  color: #555;
+}
+
+.book-stats {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.book-stats p {
   font-size: 16px;
-  line-height: 1.5;
+  color: #666;
 }

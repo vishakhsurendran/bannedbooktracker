@@ -14,7 +14,7 @@ const SearchPage = () => {
         <h2>Results</h2>
         <div className="result-item">
           <Link to="/book-details" className="result-link">
-            Book Title and Author (Click to View Details Page)
+            Book Title and Author
           </Link>
         </div>
       </div>
