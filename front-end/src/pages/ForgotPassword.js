@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import "./Login.css"
 import book_icon from "./pictures/book_icon.png";
+import { Link } from "react-router-dom";
 
     function ForgotPassword() {
         const [email, setEmail] = useState('');
@@ -37,7 +38,9 @@ import book_icon from "./pictures/book_icon.png";
                         <button className="login-form-black-button" type="submit">SEND RESET LINK</button>
                     </form>
                     <div className="login-form-div">
-                        <label className="login-form-hyperlink">RETURN TO SIGN IN</label>
+                        <Link to="/">
+                            <label className="login-form-hyperlink">RETURN TO SIGN IN</label>
+                        </Link>
                     </div>
                 </div>
             </div>

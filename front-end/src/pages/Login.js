@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import "./Login.css"
 import book_icon from "./pictures/book_icon.png"
@@ -15,12 +14,6 @@ import book_icon from "./pictures/book_icon.png"
             console.log('Logging in with:', { email, password });
             // After successful login, you might redirect the user or update the UI
         };
-
-        /*let navigate = useNavigate();
-        const routeTo = () => {
-            let path = "/signup";
-            navigate(path);
-        }*/
 
         return (
             <div className="login-container">
@@ -52,14 +45,18 @@ import book_icon from "./pictures/book_icon.png"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 required />
-                            <label className="login-form-hyperlink">FORGOT YOUR PASSWORD?</label>
+                            <Link to="/reset">
+                                <label className="login-form-hyperlink">FORGOT YOUR PASSWORD?</label>
+                            </Link>
                             <div className="login-form-spacer"></div>
                         </div>
                         <button className="login-form-black-button" type="submit">SIGN IN</button>
                     </form>
                     <div className="login-form-div">
                         <label className="login-form-text">NEW TO BANNED BOOK TRACKER?</label>
-                        <button className="login-form-white-button" type="submit">SIGN UP</button>
+                        <Link to="/signup">
+                            <button className="login-form-white-button" type="submit">SIGN UP</button>
+                        </Link>
                     </div>
                 </div>
             </div>

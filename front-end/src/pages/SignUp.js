@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import "./Login.css"
 import book_icon from "./pictures/book_icon.png"
+import { Link } from "react-router-dom";
 
     function SignUp() {
         const [name, setName] = useState('');
@@ -66,7 +67,9 @@ import book_icon from "./pictures/book_icon.png"
                     </form>
                     <div className="login-form-div">
                         <label className="login-form-text">ALREADY HAVE AN ACCOUNT?</label>
-                        <button className="login-form-white-button" type="submit">SIGN IN</button>
+                        <Link to="/">
+                            <button className="login-form-white-button" type="submit">SIGN IN</button>
+                        </Link>
                     </div>
                 </div>
             </div>
