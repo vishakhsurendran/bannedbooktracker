@@ -1,8 +1,6 @@
 import psycopg2
 import os
 
-__all__ = ["database"]
-
 HOST = os.environ.get("DATABASE_HOST")
 USER = os.environ.get("DATABASE_USER")
 PASSWORD = os.environ.get("DATABASE_PASSWORD")
@@ -17,5 +15,8 @@ class Database(object):
     def connection(self):
         return self.conn
 
+    def __enter__(self):
+        return self
 
-database = Database()
+    def __exit__(self, exc_type, exc_value, traceback):
+        self.conn.close()

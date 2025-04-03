@@ -1,11 +1,10 @@
-import os
+import routing.books as books
+from database import Database
+from fastapi import FastAPI
 from dotenv import load_dotenv
 
+load_dotenv()
 
-def main():
-    pass
+app = FastAPI()
 
-
-if __name__ == "__main__":
-    load_dotenv()
-    main()
+app.router.include_router(books.router, prefix="/books", tags=["Books"])
