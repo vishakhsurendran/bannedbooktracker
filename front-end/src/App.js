@@ -12,7 +12,7 @@ import { Link } from 'react-router-dom';
 import NavBar from "./components/NavBar";
 
 
-function App() {
+/*function App() {
   return (
     <BrowserRouter>
       <div>
@@ -41,23 +41,20 @@ function App() {
     </BrowserRouter>
   );
 }
-export default App;
+export default App;*/
 
-/*
+
 function App() {
   return (
       <BrowserRouter>
-          <NavBar>
             <Routes>
                 <Route exact path="/" element={<Login />} />
                 <Route path="/signup" element={<SignUp />} />
                 <Route path="/reset" element={<ForgotPassword />} />
             </Routes>
-        </NavBar>
       </BrowserRouter>
 
   );
 }
 
 export default App;
-*/

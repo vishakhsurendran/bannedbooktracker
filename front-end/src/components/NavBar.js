@@ -37,6 +37,11 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import book_icon from "../pictures/book_icon.png";
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import InputGroup from 'react-bootstrap/InputGroup';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 function NavBar() {
   return (
@@ -69,8 +74,8 @@ function NavBar() {
         </Navbar.Collapse>
       </Container>
     </Navbar>*/
-<div>
-      <Navbar>
+
+      <Navbar className="navbar">
         <Navbar.Brand href="#home">
           <img
           src={book_icon}
@@ -86,8 +91,15 @@ function NavBar() {
               </NavDropdown.Item>
               <NavDropdown.Item href="#action/3.3">GENRE 3</NavDropdown.Item>
         </NavDropdown>
+          <Form inline>
+            <Form.Control
+              type="text"
+              placeholder="Search"
+              className="navbar-search"
+            />
+      </Form>
       </Navbar>
-  </div>
+
   );
 }
 
