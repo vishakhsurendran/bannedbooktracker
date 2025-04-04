@@ -1,21 +1,35 @@
 import React, { useState } from 'react';
 import "./Login.css"
-import book_icon from "./pictures/book_icon.png"
-import { Link } from "react-router-dom";
+import book_icon from "../pictures/book_icon.png"
+import { Link, Navigate } from "react-router-dom";
+import { doCreateUser } from "../firebase/auth";
+import { useAuth } from "../contexts/authContext";
 
-    function SignUp() {
-        const [name, setName] = useState('');
+function SignUp() {
+
+        //const { userLoggedIn } = useAuth();
+    //{userLoggedIn && (<Navigate to={'/home'} replace={true} />)}
+    //value={confirmPassword}
+    //                                 onChange={(e) => {setPassword(e.target.value)}}
+    //                                 required
+
         const [email, setEmail] = useState('');
         const [password, setPassword] = useState('');
+        //const [confirmPassword, setConfirmPassword] = useState('');
+        const [isRegistering, setIsRegistering] = useState(false);
+        const [errorMessage, setErrorMessage] = useState("");
 
-        /*const handleSubmit = (event) => {
-            event.preventDefault();
-            // Handle login logic here (e.g., API call)
-            console.log('Logging in with:', { email, password });
-            // After successful login, you might redirect the user or update the UI
-        };*/
+        const handleSubmit = async (e) => {
+            e.preventDefault();
+            if(!isRegistering) {
+                setIsRegistering(true)
+                await doCreateUser(email, password)
+            }
+        }
 
         return (
+            <div>
+
             <div className="login-container">
                 <img
                     src={book_icon}
@@ -23,17 +37,10 @@ import { Link } from "react-router-dom";
                     className="login-form-image" />
 
                 <div>
-                    <form className="signup-form">
+                    <form className="signup-form" onSubmit={handleSubmit}>
                         <div>
                             <h className="login-form-header">SIGN UP</h>
-                            <label className="login-form-label" htmlFor="name">NAME</label>
-                            <input
-                                className="login-form-input"
-                                type="name"
-                                id="name"
-                                value={name}
-                                onChange={(e) => setName(e.target.value)}
-                                required />
+                            <label className="signup-form-subheader">BANNED BOOK TRACKER</label>
                             <label className="login-form-label" htmlFor="email">EMAIL</label>
                             <input
                                 className="login-form-input"
@@ -48,22 +55,22 @@ import { Link } from "react-router-dom";
                             <label className="login-form-label" htmlFor="password">PASSWORD</label>
                             <input
                                 className="login-form-input"
+                                disabled={isRegistering}
                                 type="password"
                                 id="password"
                                 value={password}
-                                onChange={(e) => setPassword(e.target.value)}
+                                onChange={(e) => {setPassword(e.target.value)}}
                                 required />
                             <label className="login-form-label" htmlFor="password">CONFIRM PASSWORD</label>
                             <input
+                                disabled={isRegistering}
                                 className="login-form-input"
                                 type="password"
                                 id="password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                required />
+                                 />
                             <div className="signup-form-spacer"></div>
                         </div>
-                        <button className="login-form-black-button" type="submit">CREATE ACCOUNT</button>
+                        <button className="login-form-black-button" type="submit" disabled={isRegistering}>CREATE ACCOUNT</button>
                     </form>
                     <div className="login-form-div">
                         <label className="login-form-text">ALREADY HAVE AN ACCOUNT?</label>
@@ -73,6 +80,7 @@ import { Link } from "react-router-dom";
                     </div>
                 </div>
             </div>
+        </div>
       );
     }
 

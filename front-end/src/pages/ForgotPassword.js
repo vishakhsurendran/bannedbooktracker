@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import "./Login.css"
-import book_icon from "./pictures/book_icon.png";
+import book_icon from "../pictures/book_icon.png";
 import { Link } from "react-router-dom";
 
     function ForgotPassword() {
@@ -21,7 +21,7 @@ import { Link } from "react-router-dom";
                     className="login-form-image" />
 
                 <div>
-                    <form className="login-form">
+                    <form className="forgotpassword-form">
                         <div>
                             <h className="login-form-header">FORGOT PASSWORD?</h>
                             <label className="login-form-subheader2">Enter the email associated with your account below. If an account exists with that email, a password reset link will be sent.</label>

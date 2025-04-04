@@ -3,7 +3,7 @@ import {Link, Navigate} from "react-router-dom";
 import "./Login.css"
 import { useRef } from "react";
 import { doSignIn } from "../firebase/auth";
-import book_icon from "./pictures/book_icon.png"
+import book_icon from "../pictures/book_icon.png"
 import { useAuth} from "../contexts/authContext";
 
 //written in part with help of tutorial at https://www.youtube.com/watch?v=WpIDez53SK4
@@ -12,7 +12,7 @@ function Login() {
 
     //get logged in status
     //const { userLoggedIn } = useAuth();
-    //            {userLoggedIn && (<Navigate to='/' replace={true} />)}
+    //{userLoggedIn && (<Navigate to='/' replace={true} />)}
 
     //initialize variables
     const [email, setEmail] = useState('');
@@ -34,6 +34,7 @@ function Login() {
 
     return (
         <div>
+
         <div className="login-container">
             <img
                 src={book_icon}
