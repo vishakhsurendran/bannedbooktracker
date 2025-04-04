@@ -1,0 +1,21 @@
+.navbar {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+
+}
+
+.navbar-link {
+    font-family: Inter, sans-serif, bold;
+    margin: 10px;
+    font-size: large;
+    align-items: flex-end;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.logo {
+    width: 100px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
