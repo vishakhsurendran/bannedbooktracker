@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import {Link, Navigate} from "react-router-dom";
 import "./Login.css"
-import { useRef } from "react";
 import { doSignIn } from "../firebase/auth";
 import book_icon from "../pictures/book_icon.png"
 import { useAuth} from "../contexts/authContext";
