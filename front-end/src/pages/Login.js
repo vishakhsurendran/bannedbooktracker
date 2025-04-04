@@ -63,7 +63,7 @@ function Login() {
                             value={password}
                             onChange={(e) => {setPassword(e.target.value)}}
                             required />
-                        <Link to="/reset">
+                        <Link to="/reset" style={{ textDecoration: 'none' }}>
                             <label className="login-form-hyperlink">FORGOT YOUR PASSWORD?</label>
                         </Link>
                         <div className="login-form-spacer"></div>

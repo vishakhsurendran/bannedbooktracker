@@ -14,8 +14,17 @@
     padding-right: 10px;
 }
 
+.navbar-link:hover {
+    color: slategray;
+    -webkit-transition: color .5s;
+    -moz-transition:    color .5s;
+    -ms-transition:     color .5s;
+    -o-transition:      color .5s;
+    transition:         color .5s;
+}
+
 .logo {
-    width: 100px;
+    width: 125px;
     padding-left: 20px;
     padding-right: 20px;
 }

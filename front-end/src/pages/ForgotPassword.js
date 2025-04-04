@@ -38,7 +38,7 @@ import { Link } from "react-router-dom";
                         <button className="login-form-black-button" type="submit">SEND RESET LINK</button>
                     </form>
                     <div className="login-form-div">
-                        <Link to="/">
+                        <Link to="/" style={{ textDecoration: 'none' }}>
                             <label className="login-form-hyperlink">RETURN TO SIGN IN</label>
                         </Link>
                     </div>
