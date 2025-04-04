@@ -15,15 +15,20 @@ function SignUp() {
 
         const [email, setEmail] = useState('');
         const [password, setPassword] = useState('');
-        //const [confirmPassword, setConfirmPassword] = useState('');
+        const [confirmPassword, setConfirmPassword] = useState('');
         const [isRegistering, setIsRegistering] = useState(false);
         const [errorMessage, setErrorMessage] = useState("");
 
         const handleSubmit = async (e) => {
             e.preventDefault();
+
             if(!isRegistering) {
                 setIsRegistering(true)
                 await doCreateUser(email, password)
+            }
+
+            if (password !== confirmPassword) {
+                console.log("Error");
             }
         }
 
@@ -45,7 +50,6 @@ function SignUp() {
                             <input
                                 className="login-form-input"
                                 type="email"
-                                id="email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                                 required />
@@ -57,16 +61,17 @@ function SignUp() {
                                 className="login-form-input"
                                 disabled={isRegistering}
                                 type="password"
-                                id="password"
                                 value={password}
                                 onChange={(e) => {setPassword(e.target.value)}}
                                 required />
                             <label className="login-form-label" htmlFor="password">CONFIRM PASSWORD</label>
                             <input
                                 disabled={isRegistering}
-                                className="login-form-input"
                                 type="password"
-                                id="password"
+                                autoComplete='off'
+                                required
+                                className="login-form-input"
+                                value={confirmPassword} onChange={(e) => { setConfirmPassword(e.target.value) }}
                                  />
                             <div className="signup-form-spacer"></div>
                         </div>
@@ -74,7 +79,7 @@ function SignUp() {
                     </form>
                     <div className="login-form-div">
                         <label className="login-form-text">ALREADY HAVE AN ACCOUNT?</label>
-                        <Link to="/">
+                        <Link to="/login">
                             <button className="login-form-white-button" type="submit">SIGN IN</button>
                         </Link>
                     </div>
