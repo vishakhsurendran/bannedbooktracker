@@ -9,6 +9,8 @@ import Accounts from "./pages/Accounts";
 import Map from "./pages/Map";
 import LocationResult from "./pages/LocationResult";
 import { Link } from 'react-router-dom';
+import NavBar from "./components/NavBar";
+
 
 function App() {
   return (
@@ -45,11 +47,13 @@ export default App;
 function App() {
   return (
       <BrowserRouter>
-        <Routes>
-            <Route exact path="/" element={<Login />} />
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="/reset" element={<ForgotPassword />} />
-        </Routes>
+          <NavBar>
+            <Routes>
+                <Route exact path="/" element={<Login />} />
+                <Route path="/signup" element={<SignUp />} />
+                <Route path="/reset" element={<ForgotPassword />} />
+            </Routes>
+        </NavBar>
       </BrowserRouter>
 
   );
