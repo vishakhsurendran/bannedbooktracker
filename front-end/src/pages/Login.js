@@ -3,15 +3,14 @@ import {Link, Navigate} from "react-router-dom";
 import "./Login.css"
 import { doSignIn } from "../firebase/auth";
 import book_icon from "../pictures/book_icon.png"
-import { useAuth} from "../contexts/authContext";
+import { useAuth } from "../contexts/authContext";
 
 //written in part with help of tutorial at https://www.youtube.com/watch?v=WpIDez53SK4
 //and Nitij's react-firebase-auth-boilerplate at https://github.com/Nitij/react-firebase-auth-boilerplate/tree/main
 function Login() {
 
     //get logged in status
-    //const { userLoggedIn } = useAuth();
-    //{userLoggedIn && (<Navigate to='/' replace={true} />)}
+    const { userLoggedIn } = useAuth();
 
     //initialize variables
     const [email, setEmail] = useState('');
@@ -33,7 +32,7 @@ function Login() {
 
     return (
         <div>
-
+            {userLoggedIn && (<Navigate to='/' replace={true} />)}
         <div className="login-container">
             <img
                 src={book_icon}
@@ -67,12 +66,15 @@ function Login() {
                         </Link>
                         <div className="login-form-spacer"></div>
                     </div>
+                    {errorMessage && (
+                            <span className='errormessage'>{errorMessage}</span>
+                        )}
                     <button className="login-form-black-button" type="submit">SIGN IN</button>
                 </form>
                 <div className="login-form-div">
                     <label className="login-form-text">NEW TO BANNED BOOK TRACKER?</label>
                     <Link to="/signup">
-                        <button className="login-form-white-button" type="submit">SIGN UP</button>
+                        <button className="login-form-white-button" type="submit">SIGN UP disabled={isSigningIn}</button>
                     </Link>
                 </div>
             </div>

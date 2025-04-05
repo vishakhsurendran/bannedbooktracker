@@ -7,34 +7,30 @@ import { useAuth } from "../contexts/authContext";
 
 function SignUp() {
 
-        //const { userLoggedIn } = useAuth();
-    //{userLoggedIn && (<Navigate to={'/home'} replace={true} />)}
-    //value={confirmPassword}
-    //                                 onChange={(e) => {setPassword(e.target.value)}}
-    //                                 required
+        const { userLoggedIn } = useAuth();
 
         const [email, setEmail] = useState('');
         const [password, setPassword] = useState('');
         const [confirmPassword, setConfirmPassword] = useState('');
         const [isRegistering, setIsRegistering] = useState(false);
-        const [errorMessage, setErrorMessage] = useState("");
+        const [errorMessage, setErrorMessage] = useState('');
 
         const handleSubmit = async (e) => {
             e.preventDefault();
 
+            if (password !== confirmPassword) {
+                setErrorMessage("Passwords do not match!")
+                setIsRegistering(false);
+            }
             if(!isRegistering) {
                 setIsRegistering(true)
                 await doCreateUser(email, password)
-            }
-
-            if (password !== confirmPassword) {
-                console.log("Error");
             }
         }
 
         return (
             <div>
-
+            {userLoggedIn && (<Navigate to={'/'} replace={true} />)}
             <div className="login-container">
                 <img
                     src={book_icon}
@@ -73,6 +69,9 @@ function SignUp() {
                                 className="login-form-input"
                                 value={confirmPassword} onChange={(e) => { setConfirmPassword(e.target.value) }}
                                  />
+                            {errorMessage && (
+                            <span className='errormessage'>{errorMessage}</span>
+                        )}
                             <div className="signup-form-spacer"></div>
                         </div>
                         <button className="login-form-black-button" type="submit" disabled={isRegistering}>CREATE ACCOUNT</button>
