@@ -1,0 +1,29 @@
+.location-results {
+  height: 800px;
+  padding: 20px;
+  background-color: #f0f0f0;
+  font-family: Inter, sans-serif;
+  text-align: center;
+}
+
+.results-list {
+  margin-top: 20px;
+}
+
+.result-item {
+  padding: 10px;
+  background-color: #bdbdbd;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+.result-link {
+  text-decoration: none;
+  color: dodgerblue;
+  font-weight: bold;
+}
+
+.result-link:hover {
+  text-decoration: underline;
+}
