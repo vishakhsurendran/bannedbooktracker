@@ -1,2 +1,0 @@
-# bannedbooktracker
-Tracks banned books
