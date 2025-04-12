@@ -8,6 +8,7 @@ router = APIRouter()
 
 
 class Book(BaseModel):
+    id: int
     author: Optional[str]
     title: Optional[str]
     type_of_ban: Optional[str]
@@ -59,7 +60,7 @@ async def get_books_by_state(state: StateRequest = Body(...)) -> List[Book]:
     with Database() as db:
         cursor = db.connection.cursor()
         query = """
-            SELECT author, title, type_of_ban, secondary_authors, illustrators,
+            SELECT id, author, title, type_of_ban, secondary_authors, illustrators,
                    translators, state, district, date_of_challenge_removal, origin_of_challenge
             FROM book_bans
             WHERE state = %s;
@@ -80,7 +81,7 @@ async def get_books_by_author(author: AuthorRequest = Body(...)) -> List[Book]:
     with Database() as db:
         cursor = db.connection.cursor()
         query = """
-            SELECT author, title, type_of_ban, secondary_authors, illustrators,
+            SELECT id, author, title, type_of_ban, secondary_authors, illustrators,
                    translators, state, district, date_of_challenge_removal, origin_of_challenge
             FROM book_bans
             WHERE author = %s;
@@ -101,7 +102,7 @@ async def get_books_by_district(district: DistrictRequest = Body(...)) -> List[B
     with Database() as db:
         cursor = db.connection.cursor()
         query = """
-            SELECT author, title, type_of_ban, secondary_authors, illustrators,
+            SELECT id, author, title, type_of_ban, secondary_authors, illustrators,
                    translators, state, district, date_of_challenge_removal, origin_of_challenge
             FROM book_bans
             WHERE district = %s;
@@ -122,7 +123,7 @@ async def get_books_by_title(title: TitleRequest = Body(...)) -> List[Book]:
     with Database() as db:
         cursor = db.connection.cursor()
         query = """
-            SELECT author, title, type_of_ban, secondary_authors, illustrators,
+            SELECT id, author, title, type_of_ban, secondary_authors, illustrators,
                    translators, state, district, date_of_challenge_removal, origin_of_challenge
             FROM book_bans
             WHERE title = %s;
@@ -143,7 +144,7 @@ async def select_all_books() -> List[Book]:
     with Database() as db:
         cursor = db.connection.cursor()
         query = """
-            SELECT author, title, type_of_ban, secondary_authors, illustrators,
+            SELECT id, author, title, type_of_ban, secondary_authors, illustrators,
                    translators, state, district, date_of_challenge_removal, origin_of_challenge
             FROM book_bans;
         """
@@ -167,7 +168,7 @@ async def before_month_year(request: MonthYearRequest = Body(...)) -> List[Book]
     with Database() as db:
         cursor = db.connection.cursor()
         query = """
-            SELECT author, title, type_of_ban, secondary_authors, illustrators,
+            SELECT id, author, title, type_of_ban, secondary_authors, illustrators,
                    translators, state, district, date_of_challenge_removal, origin_of_challenge
             FROM book_bans
             WHERE date_of_challenge_removal < %s;
@@ -195,7 +196,7 @@ async def after_month_year(request: MonthYearRequest = Body(...)) -> List[Book]:
     with Database() as db:
         cursor = db.connection.cursor()
         query = """
-            SELECT author, title, type_of_ban, secondary_authors, illustrators,
+            SELECT id, author, title, type_of_ban, secondary_authors, illustrators,
                    translators, state, district, date_of_challenge_removal, origin_of_challenge
             FROM book_bans
             WHERE date_of_challenge_removal >= %s;
@@ -224,7 +225,7 @@ async def during_month_year(request: MonthYearRequest = Body(...)) -> List[Book]
     with Database() as db:
         cursor = db.connection.cursor()
         query = """
-            SELECT author, title, type_of_ban, secondary_authors, illustrators,
+            SELECT id, author, title, type_of_ban, secondary_authors, illustrators,
                    translators, state, district, date_of_challenge_removal, origin_of_challenge
             FROM book_bans
             WHERE date_of_challenge_removal >= %s AND date_of_challenge_removal < %s;
@@ -255,7 +256,7 @@ async def between_month_years(
     with Database() as db:
         cursor = db.connection.cursor()
         query = """
-            SELECT author, title, type_of_ban, secondary_authors, illustrators,
+            SELECT id, author, title, type_of_ban, secondary_authors, illustrators,
                    translators, state, district, date_of_challenge_removal, origin_of_challenge
             FROM book_bans
             WHERE date_of_challenge_removal >= %s AND date_of_challenge_removal < %s;
