@@ -74,7 +74,7 @@ function Login() {
                 <div className="login-form-div">
                     <label className="login-form-text">NEW TO BANNED BOOK TRACKER?</label>
                     <Link to="/signup">
-                        <button className="login-form-white-button" type="submit">SIGN UP disabled={isSigningIn}</button>
+                        <button className="login-form-white-button" type="submit" disabled={isSigningIn}>SIGN UP</button>
                     </Link>
                 </div>
             </div>

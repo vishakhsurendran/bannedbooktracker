@@ -66,7 +66,9 @@ export default App;*/
 
 function App() {
   return (
-      <NavBar />
+      <AuthProvider>
+        <NavBar />
+      </AuthProvider>
   );
 }
 
