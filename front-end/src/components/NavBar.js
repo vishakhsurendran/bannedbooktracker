@@ -33,7 +33,7 @@ function NavBar() {
         </Navbar.Brand>
         <Link to="/" className="navbar-link">HOME</Link>
         <Link to="/lists" className="navbar-link">LISTS</Link>
-          <Link to="/browse" className="navbar-link">BROWSE</Link>
+          <Link to="/search" className="navbar-link">BROWSE</Link>
           <div className="spacer2"></div>
           <input
               type="search"

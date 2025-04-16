@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import apiClient from './axiosConfig';
+import apiClient from '../axios/axiosConfig';
 
 function Home() {
     const [books, setBooks] = useState([]);
