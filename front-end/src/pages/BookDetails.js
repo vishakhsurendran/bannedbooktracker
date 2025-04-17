@@ -1,22 +1,26 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import './BookDetails.css';
+import React from 'react';
+import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const BookDetails = () => {
+    const location = useLocation();
+    const { book } = location.state || {};
     const navigate = useNavigate();
-  return (
-    <div className="book-details">
-      <div className="book-cover">Book Cover</div>
-      <div className="book-info">
-        <h1>Title</h1>
-        <h2>by Author</h2>
-        <p><strong>Synopsis:</strong> stuff</p>
-        <p><strong>Reason for Ban:</strong> reason</p>
-        <p><strong>ISBN #:</strong> 1234567890</p>
-      </div>
-        <button onClick={() => navigate('/search')}>Go Back to Search</button>
-    </div>
-  );
+
+    if (!book) {
+        return <p>No book data available.</p>
+    }
+    return (
+        <div>
+            <h1>{book.title}</h1>
+            <p><strong>Author:</strong> {book.author}</p>
+            <p><strong>Type of Ban:</strong> {book.type_of_ban}</p>
+            <p><strong>State:</strong> {book.state}</p>
+            <p><strong>District:</strong> {book.district}</p>
+            <button onClick={() => navigate('/search')}>Go Back to Search</button>
+        </div>
+    );
 };
 
 export default BookDetails;
