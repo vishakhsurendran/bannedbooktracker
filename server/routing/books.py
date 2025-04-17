@@ -56,7 +56,7 @@ def next_month(year: int, month: int) -> date:
 
 
 @router.post("/state/", response_model=List[Book])
-async def get_books_by_state(state: StateRequest = Body(...)) -> List[Book]:
+async def get_books_by_state(payload: StateRequest = Body(...)) -> List[Book]:
     with Database() as db:
         cursor = db.connection.cursor()
         query = """
@@ -66,7 +66,7 @@ async def get_books_by_state(state: StateRequest = Body(...)) -> List[Book]:
             WHERE state = %s;
         """
         try:
-            cursor.execute(query, (state.state,))
+            cursor.execute(query, (payload.state,))
             rows = cursor.fetchall()
         except Exception as err:
             raise HTTPException(status_code=404, detail=f"Error executing query: {err}")
@@ -77,7 +77,7 @@ async def get_books_by_state(state: StateRequest = Body(...)) -> List[Book]:
 
 
 @router.post("/author/", response_model=List[Book])
-async def get_books_by_author(author: AuthorRequest = Body(...)) -> List[Book]:
+async def get_books_by_author(payload: AuthorRequest = Body(...)) -> List[Book]:
     with Database() as db:
         cursor = db.connection.cursor()
         query = """
@@ -87,7 +87,7 @@ async def get_books_by_author(author: AuthorRequest = Body(...)) -> List[Book]:
             WHERE author = %s;
         """
         try:
-            cursor.execute(query, (author.author,))
+            cursor.execute(query, (payload.author,))
             rows = cursor.fetchall()
         except Exception as err:
             raise HTTPException(status_code=404, detail=f"Error executing query: {err}")
@@ -98,7 +98,7 @@ async def get_books_by_author(author: AuthorRequest = Body(...)) -> List[Book]:
 
 
 @router.post("/district/", response_model=List[Book])
-async def get_books_by_district(district: DistrictRequest = Body(...)) -> List[Book]:
+async def get_books_by_district(payload: DistrictRequest = Body(...)) -> List[Book]:
     with Database() as db:
         cursor = db.connection.cursor()
         query = """
@@ -108,7 +108,7 @@ async def get_books_by_district(district: DistrictRequest = Body(...)) -> List[B
             WHERE district = %s;
         """
         try:
-            cursor.execute(query, (district.district,))
+            cursor.execute(query, (payload.district,))
             rows = cursor.fetchall()
         except Exception as err:
             raise HTTPException(status_code=404, detail=f"Error executing query: {err}")
@@ -119,7 +119,7 @@ async def get_books_by_district(district: DistrictRequest = Body(...)) -> List[B
 
 
 @router.post("/title/", response_model=List[Book])
-async def get_books_by_title(title: TitleRequest = Body(...)) -> List[Book]:
+async def get_books_by_title(payload: TitleRequest = Body(...)) -> List[Book]:
     with Database() as db:
         cursor = db.connection.cursor()
         query = """
@@ -129,7 +129,7 @@ async def get_books_by_title(title: TitleRequest = Body(...)) -> List[Book]:
             WHERE title = %s;
         """
         try:
-            cursor.execute(query, (title.title,))
+            cursor.execute(query, (payload.title,))
             rows = cursor.fetchall()
         except Exception as err:
             raise HTTPException(status_code=404, detail=f"Error executing query: {err}")
@@ -163,8 +163,8 @@ async def select_all_books() -> List[Book]:
 
 
 @router.post("/period/before_month_year", response_model=List[Book])
-async def before_month_year(request: MonthYearRequest = Body(...)) -> List[Book]:
-    threshold_date = date(request.year, request.month, 1)
+async def before_month_year(payload: MonthYearRequest = Body(...)) -> List[Book]:
+    threshold_date = date(payload.year, payload.month, 1)
     with Database() as db:
         cursor = db.connection.cursor()
         query = """
@@ -191,8 +191,8 @@ async def before_month_year(request: MonthYearRequest = Body(...)) -> List[Book]
 
 
 @router.post("/period/after_month_year", response_model=List[Book])
-async def after_month_year(request: MonthYearRequest = Body(...)) -> List[Book]:
-    threshold_date = next_month(request.year, request.month)
+async def after_month_year(payload: MonthYearRequest = Body(...)) -> List[Book]:
+    threshold_date = next_month(payload.year, payload.month)
     with Database() as db:
         cursor = db.connection.cursor()
         query = """
@@ -219,9 +219,9 @@ async def after_month_year(request: MonthYearRequest = Body(...)) -> List[Book]:
 
 
 @router.post("/period/during_month_year", response_model=List[Book])
-async def during_month_year(request: MonthYearRequest = Body(...)) -> List[Book]:
-    start_date = date(request.year, request.month, 1)
-    end_date = next_month(request.year, request.month)
+async def during_month_year(payload: MonthYearRequest = Body(...)) -> List[Book]:
+    start_date = date(payload.year, payload.month, 1)
+    end_date = next_month(payload.year, payload.month)
     with Database() as db:
         cursor = db.connection.cursor()
         query = """
