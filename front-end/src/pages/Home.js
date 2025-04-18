@@ -16,7 +16,6 @@ function Home() {
                 console.error('Error fetching books:', error);
             }
         };
-
         fetchBooks();
     }, []);
 
