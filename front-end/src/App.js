@@ -10,8 +10,9 @@ import Map from "./pages/Map";
 import LocationResult from "./pages/LocationResult";
 import Home from "./pages/Home"
 import { Link } from 'react-router-dom';
-import { AuthProvider } from "./contexts/authContext";
+import { AuthProvider, useAuth } from "./contexts/authContext";
 import NavBar from "./components/NavBar";
+import AccountCreation from "./pages/AccountCreation";
 
 
 /*function App() {
@@ -65,9 +66,24 @@ export default App;*/
 export default App;*/
 
 function App() {
+
   return (
       <AuthProvider>
-        <NavBar />
+          <BrowserRouter>
+              <NavBar />
+              <Routes>
+                  <Route exact path="/" element={<Home />} />
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/signup" element={<SignUp />} />
+                  <Route path="/reset" element={<ForgotPassword />} />
+                  <Route path="/create-account" element={<AccountCreation />} />
+                  <Route path="/search" element={<SearchPage />} />
+                  <Route path="/book-details" element={<BookDetails />} />
+                  <Route path="/accounts" element={<Accounts />} />
+                  <Route path="/map" element={<Map />} />
+                  <Route path="/location-result" element={<LocationResult />} />
+              </Routes>
+          </BrowserRouter>
       </AuthProvider>
   );
 }

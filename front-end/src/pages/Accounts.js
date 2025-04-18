@@ -1,8 +1,16 @@
 import React from 'react';
 import './Accounts.css';
+import { useAuth} from "../contexts/authContext";
+import {Navigate} from "react-router-dom";
+import LogoutButton from "../components/LogoutButton";
 
 const Accounts = () => {
+
+    const { userLoggedIn } = useAuth();
+
   return (
+      <div>
+          {!userLoggedIn && (<Navigate to='/login' replace={true} />)}
     <div className="accounts-page">
       <div className="profile-picture">Profile Picture</div>
       <div className="user-details">
@@ -23,7 +31,9 @@ const Accounts = () => {
         <p>Number of Banned Books Read: [#]</p>
         <p>Currently Reading: [Book Title and Author]</p>
       </div>
-    </div>
+        </div>
+        <LogoutButton/>
+      </div>
   );
 };
 
