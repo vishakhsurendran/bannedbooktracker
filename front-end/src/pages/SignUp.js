@@ -32,11 +32,12 @@ function SignUp() {
             <div>
             {userLoggedIn && (<Navigate to={'/'} replace={true} />)}
             <div className="login-container">
-                <img
-                    src={book_icon}
-                    alt="book logo"
-                    className="login-form-image" />
-
+                <Link to="/">
+                    <img
+                        src={book_icon}
+                        alt="book logo"
+                        className="login-form-image" />
+                </Link>
                 <div>
                     <form className="signup-form" onSubmit={handleSubmit}>
                         <div>
