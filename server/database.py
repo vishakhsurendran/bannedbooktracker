@@ -1,5 +1,8 @@
 import psycopg2
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 HOST = os.environ.get("DATABASE_HOST")
 USER = os.environ.get("DATABASE_USER")
