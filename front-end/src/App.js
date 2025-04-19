@@ -12,7 +12,7 @@ import Home from "./pages/Home"
 import { Link } from 'react-router-dom';
 import { AuthProvider, useAuth } from "./contexts/authContext";
 import NavBar from "./components/NavBar";
-import AccountCreation from "./pages/AccountCreation";
+import Container from "react-bootstrap/Container";
 
 
 /*function App() {
@@ -71,18 +71,19 @@ function App() {
       <AuthProvider>
           <BrowserRouter>
               <NavBar />
+              <Container>
               <Routes>
                   <Route exact path="/" element={<Home />} />
                   <Route path="/login" element={<Login />} />
                   <Route path="/signup" element={<SignUp />} />
                   <Route path="/reset" element={<ForgotPassword />} />
-                  <Route path="/create-account" element={<AccountCreation />} />
                   <Route path="/search" element={<SearchPage />} />
                   <Route path="/book-details" element={<BookDetails />} />
                   <Route path="/accounts" element={<Accounts />} />
                   <Route path="/map" element={<Map />} />
                   <Route path="/location-result" element={<LocationResult />} />
               </Routes>
+              </Container>
           </BrowserRouter>
       </AuthProvider>
   );

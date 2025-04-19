@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import "./Login.css"
 import book_icon from "../pictures/book_icon.png"
 import { Link, Navigate } from "react-router-dom";
-import { doCreateUser } from "../firebase/auth";
+import {doCreateUser, doSignIn, handleFirebaseError} from "../firebase/auth";
 import { useAuth } from "../contexts/authContext";
 
 function SignUp() {
@@ -12,25 +12,35 @@ function SignUp() {
         const [email, setEmail] = useState('');
         const [password, setPassword] = useState('');
         const [confirmPassword, setConfirmPassword] = useState('');
+        const [name, setName] = useState('');
+        const [location, setLocation] = useState(null);
         const [isRegistering, setIsRegistering] = useState(false);
         const [errorMessage, setErrorMessage] = useState('');
 
         const handleSubmit = async (e) => {
             e.preventDefault();
 
-            if (password !== confirmPassword) {
-                setErrorMessage("Passwords do not match!")
-                setIsRegistering(false);
-            }
+            setErrorMessage("");
+
             if(!isRegistering) {
-                setIsRegistering(true)
-                await doCreateUser(email, password)
+                try {
+                    if (password !== confirmPassword) {
+                    setErrorMessage("Passwords do not match!")
+                    }
+                    else {
+                    await doCreateUser(email, password);
+                    console.log('Logging in with:', { email, password });
+                    setIsRegistering(true)}
+                } catch (err) {
+                    setErrorMessage(handleFirebaseError(err.code));
+                    console.log(err.code);
+                }
             }
         }
 
         return (
             <div>
-            {userLoggedIn && (<Navigate to={'/'} replace={true} />)}
+            {userLoggedIn && (<Navigate to={'/accounts'} replace={true} />)}
             <div className="login-container">
                 <Link to="/">
                     <img
@@ -43,7 +53,7 @@ function SignUp() {
                         <div>
                             <h className="login-form-header">SIGN UP</h>
                             <label className="signup-form-subheader">BANNED BOOK TRACKER</label>
-                            <label className="login-form-label" htmlFor="email">EMAIL</label>
+                            <label className="login-form-label" htmlFor="email">EMAIL <span style={{color: "red"}}>*</span></label>
                             <input
                                 className="login-form-input"
                                 type="email"
@@ -53,29 +63,39 @@ function SignUp() {
                         </div>
                         <div>
                             <div className="login-form-spacer"></div>
-                            <label className="login-form-label" htmlFor="password">PASSWORD</label>
+                            <label className="login-form-label" htmlFor="password">PASSWORD <span style={{color: "red"}}>*</span></label>
                             <input
                                 className="login-form-input"
-                                disabled={isRegistering}
                                 type="password"
                                 value={password}
                                 onChange={(e) => {setPassword(e.target.value)}}
                                 required />
-                            <label className="login-form-label" htmlFor="password">CONFIRM PASSWORD</label>
+                            <label className="login-form-label" htmlFor="password">CONFIRM PASSWORD <span style={{color: "red"}}>*</span></label>
                             <input
-                                disabled={isRegistering}
                                 type="password"
                                 autoComplete='off'
                                 required
                                 className="login-form-input"
                                 value={confirmPassword} onChange={(e) => { setConfirmPassword(e.target.value) }}
                                  />
+                            <div className="login-form-spacer"></div>
+                            <label className="login-form-label">NAME <span style={{color: "red"}}>*</span></label>
+                        <input
+                            className="login-form-input"
+                            value={name} onChange={(e) => { setName(e.target.value) }}
+                            required />
+                    <div>
+                        <label className="login-form-label">LOCATION</label>
+                        <input
+                            className="login-form-input"
+                            value={location} onChange={(e) => { setLocation(e.target.value) }}/>
+                        <div className="login-form-spacer"></div>
+                    </div>
                             {errorMessage && (
                             <span className='errormessage'>{errorMessage}</span>
                         )}
-                            <div className="signup-form-spacer"></div>
                         </div>
-                        <button className="login-form-black-button" type="submit" disabled={isRegistering}>CREATE ACCOUNT</button>
+                        <button className="login-form-black-button" type="submit" >CREATE ACCOUNT</button>
                     </form>
                     <div className="login-form-div">
                         <label className="login-form-text">ALREADY HAVE AN ACCOUNT?</label>

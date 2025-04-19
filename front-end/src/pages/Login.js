@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import {Link, Navigate} from "react-router-dom";
 import "./Login.css"
-import { doSignIn } from "../firebase/auth";
+import { doSignIn, handleFirebaseError } from "../firebase/auth";
 import book_icon from "../pictures/book_icon.png"
 import { useAuth } from "../contexts/authContext";
 
@@ -21,12 +21,14 @@ function Login() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (!isSigningIn) {
-            setIsSigningIn(true);
+        try {
             await doSignIn(email, password);
+            console.log('Logging in with:', { email, password });
+            setIsSigningIn(true);
+        } catch (err) {
+            setErrorMessage(handleFirebaseError(err.code));
+            console.log(err.code);
         }
-
-        console.log('Logging in with:', { email, password });
     };
 
     return (
@@ -62,14 +64,14 @@ function Login() {
                             value={password}
                             onChange={(e) => {setPassword(e.target.value)}}
                             required />
+                        {errorMessage && (
+                            <span className='errormessage'>{errorMessage}</span>
+                        )}
                         <Link to="/reset" style={{ textDecoration: 'none' }}>
                             <label className="login-form-hyperlink">FORGOT YOUR PASSWORD?</label>
                         </Link>
                         <div className="login-form-spacer"></div>
                     </div>
-                    {errorMessage && (
-                            <span className='errormessage'>{errorMessage}</span>
-                        )}
                     <button className="login-form-black-button" type="submit">SIGN IN</button>
                 </form>
                 <div className="login-form-div">

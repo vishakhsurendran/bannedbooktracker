@@ -164,20 +164,12 @@
     height: 325px;
 }
 
-.accountcreation-form {
-    background-color: #f0f0f0;
-    padding: 25px;
-    border-radius: 20px;
-    width: 325px;
-    height: 350px;
-}
-
 .signup-form {
     background-color: #f0f0f0;
     padding: 25px;
     border-radius: 20px;
     width: 325px;
-    height: 450px;
+    height: 615px;
 }
 
 .errormessage {

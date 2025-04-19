@@ -23,3 +23,20 @@ export const doPasswordReset = (email) => {
 export const doPasswordChange = (password) => {
     return updatePassword(auth.currentUser, password);
 };
+
+export const handleFirebaseError = (errorCode) => {
+      switch (errorCode) {
+        case "auth/email-already-in-use":
+          return "Email is already in use.";
+        case "auth/invalid-email":
+          return "Invalid email address.";
+        case "auth/weak-password":
+          return "Password should be at least 6 characters.";
+        case "auth/user-not-found":
+          return "User not found.";
+         case "auth/wrong-password":
+          return "Incorrect password.";
+        default:
+          return "An unexpected error occurred. Please try again.";
+      }
+    };

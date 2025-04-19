@@ -1,5 +1,6 @@
 import React from 'react';
-import { getAuth, signOut } from "firebase/auth";
+import { getAuth } from "firebase/auth";
+import { doSignOut } from "../firebase/auth";
 import "./LogoutButton.css"
 
 function LogoutButton({ onLogout }) {
@@ -9,10 +10,9 @@ function LogoutButton({ onLogout }) {
 
     const handleLogout = async () => {
       try {
-        await signOut(auth);
+        await doSignOut();
       } catch (error) {
         console.error("Error signing out:", error);
-        // Handle the error, e.g., display an error message to the user
       }
     };
 
