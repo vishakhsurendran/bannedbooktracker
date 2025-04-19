@@ -7,7 +7,7 @@ function Home() {
     useEffect(() => {
         const fetchBooks = async () => {
             try {
-                const response = await apiClient.post('http://127.0.0.1:8000/books/state/', {
+                const response = await apiClient.post('/books/state/', {
                     state: 'Florida',
                 });
                 console.log('Response:', response.data);

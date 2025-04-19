@@ -15,7 +15,7 @@ const SearchPage = () => {
         }
         setError('');
         try {
-            const response = await apiClient.post('http://127.0.0.1:8000/books/title/', { title: query });
+            const response = await apiClient.post('/books/title/', { title: query });
             setResults(response.data);
         } catch (err) {
             setError('Error fetching search results.');
