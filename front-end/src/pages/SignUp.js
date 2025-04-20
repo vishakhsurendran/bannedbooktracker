@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import "./Login.css"
 import book_icon from "../pictures/book_icon.png"
-import { Link, Navigate } from "react-router-dom";
+import {Link, Navigate, redirect} from "react-router-dom";
 import {doCreateUser, doSignIn, handleFirebaseError} from "../firebase/auth";
 import { useAuth } from "../contexts/authContext";
+import apiClient from "../axios/axiosConfig";
+import { auth } from "../firebase/firebase";
 
 function SignUp() {
 
@@ -13,7 +15,7 @@ function SignUp() {
         const [password, setPassword] = useState('');
         const [confirmPassword, setConfirmPassword] = useState('');
         const [name, setName] = useState('');
-        const [location, setLocation] = useState(null);
+        const [location, setLocation] = useState('');
         const [isRegistering, setIsRegistering] = useState(false);
         const [errorMessage, setErrorMessage] = useState('');
 
@@ -28,9 +30,17 @@ function SignUp() {
                     setErrorMessage("Passwords do not match!")
                     }
                     else {
-                    await doCreateUser(email, password);
-                    console.log('Logging in with:', { email, password });
-                    setIsRegistering(true)}
+                        await doCreateUser(email, password);
+                        console.log('Logging in with:', { email, password });
+
+                        const token = await auth.currentUser.getIdToken();
+                        await apiClient.post('/user/add_user/', {
+                        token: token,
+                        name: name,
+                        location: location
+                        })
+
+                        setIsRegistering(true)}
                 } catch (err) {
                     setErrorMessage(handleFirebaseError(err.code));
                     console.log(err.code);
@@ -40,7 +50,7 @@ function SignUp() {
 
         return (
             <div>
-            {userLoggedIn && (<Navigate to={'/accounts'} replace={true} />)}
+            {userLoggedIn && (<Navigate to={'/'} replace={true} />)}
             <div className="login-container">
                 <Link to="/">
                     <img

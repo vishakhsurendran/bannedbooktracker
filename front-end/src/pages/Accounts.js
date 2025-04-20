@@ -1,12 +1,30 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import './Accounts.css';
-import { useAuth} from "../contexts/authContext";
+import { useAuth } from "../contexts/authContext";
 import {Navigate} from "react-router-dom";
 import LogoutButton from "../components/LogoutButton";
+import apiClient from "../axios/axiosConfig";
+import { auth} from "../firebase/firebase";
 
 const Accounts = () => {
 
     const { userLoggedIn } = useAuth();
+
+    const [userInfo, setUserInfo] = useState([]);
+    const [error, setError] = useState('');
+
+    useEffect(() => {
+        const fetchUser = async () => {
+        try {
+            const response = await apiClient.post('/user/get_user/', { user_id: auth.currentUser.uid });
+            setUserInfo(response.data);
+            console.log(response.data);
+        } catch (err) {
+            setError(err);
+        }
+        };
+        fetchUser()
+    }, []);
 
   return (
       <div>
@@ -16,11 +34,11 @@ const Accounts = () => {
       <div className="user-details">
         <div className="user-field">
           <label>Name:</label>
-          <div className="field-input">Name</div>
+          <div className="field-input">{userInfo.name}</div>
         </div>
         <div className="user-field">
           <label>Location:</label>
-          <div className="field-input">Location</div>
+          <div className="field-input">{userInfo.location}</div>
         </div>
         <div className="user-field">
           <label>Email:</label>
