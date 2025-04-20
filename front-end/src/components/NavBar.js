@@ -8,16 +8,25 @@ import book_icon from "../pictures/book_icon.png";
 import account_icon from "../pictures/account_icon.png";
 import message_icon from "../pictures/message_icon.png";
 import notif_icon from "../pictures/notif_icon.png";
+import { useNavigate } from 'react-router-dom';
 
 function NavBar() {
 
     const location = useLocation();
+    const navigate = useNavigate();
+    const [query, setQuery] = useState('');
 
      // Array of paths where the navbar should be hidden
     const noNavbar = ['/login', '/signup', '/reset', "/create-account"];
 
     // Check if the current path is in the noNavbarPaths array
     const shouldHideNavbar = noNavbar.includes(location.pathname);
+
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter' && query.trim()) {
+            navigate(`/search?query=${encodeURIComponent(query)}`);
+        }
+    }
 
   return shouldHideNavbar ? null : (
 
@@ -31,12 +40,15 @@ function NavBar() {
             </Navbar.Brand>
             <Link to="/" className="navbar-link">HOME</Link>
             <Link to="/lists" className="navbar-link">LISTS</Link>
-            <Link to="/search" className="navbar-link">BROWSE</Link>
+            <Link to="/browse" className="navbar-link">BROWSE</Link>
             <div className="spacer2"></div>
             <input
               type="search"
               placeholder="Search"
               className="navbar-search"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              onKeyDown={handleKeyDown}
               style={{height: 30}}
             />
             <div className="spacer"></div>

@@ -3,20 +3,32 @@ import { Link } from 'react-router-dom';
 import './SearchPage.css';
 import apiClient from "../axios/axiosConfig";
 import {auth} from "../firebase/firebase";
+import { useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
 
 const SearchPage = () => {
+    const location = useLocation();
     const [query, setQuery] = useState('');
     const [results, setResults] = useState([]);
     const [error, setError] = useState('');
 
-    const handleSearch = async () => {
-        if (!query.trim()) {
+    useEffect(() => {
+        const params = new URLSearchParams(location.search);
+        const searchQuery = params.get('query');
+        if (searchQuery) {
+            setQuery(searchQuery);
+            handleSearch(searchQuery);
+        }
+    }, [location]);
+
+    const handleSearch = async (searchQuery) => {
+        if (!searchQuery.trim()) {
             setError('Please enter a search term.');
             return;
         }
         setError('');
         try {
-            const response = await apiClient.post('/books/title/', { title: query });
+            const response = await apiClient.post('/books/title/', { title: searchQuery });
             setResults(response.data);
         } catch (err) {
             setError('Error fetching search results.');
@@ -26,16 +38,9 @@ const SearchPage = () => {
 
     return (
         <div>
-            <input
-                type="text"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                placeholder="Search for a book by title"
-            />
-            <button onClick={handleSearch}>Search</button>
+            <h2>Search Results for "{query}"</h2>
             {error && <p className="error-message">{error}</p>}
             <div className="results">
-                <h2>Results</h2>
                 {results.length > 0 ? (
                     results.map((book, index) => (
                         <div key={index} className="result-item">
