@@ -15,6 +15,7 @@ const Accounts = () => {
     const [editing, setEditing] = useState(false);
     const [name, setName] = useState('');
     const [location, setLocation] = useState('');
+    const [readCount, setReadCount] = useState(0);
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -28,6 +29,22 @@ const Accounts = () => {
         };
         fetchUser()
     }, []);
+
+    useEffect(() => {
+    const fetchReadCount = async () => {
+        try {
+            const response = await apiClient.post('/user/get_read_count/', {
+                user_id: auth.currentUser.uid,
+            });
+            setReadCount(response.data);
+        }
+        catch (err) {
+            setError(err);
+        }
+    };
+    fetchReadCount();
+    }, []);
+
 
     const handleSave = async() => {
         try {
@@ -89,7 +106,7 @@ const Accounts = () => {
                 </div>
               </div>
               <div className="book-stats">
-                <p>Number of Banned Books Read: [#]</p>
+                <p>Number of Banned Books Read: {readCount}</p>
                 <p>Currently Reading: [Book Title and Author]</p>
               </div>
             {editing ? (
