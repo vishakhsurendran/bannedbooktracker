@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './SearchPage.css';
 import apiClient from "../axios/axiosConfig";
+import {auth} from "../firebase/firebase";
 
 const SearchPage = () => {
     const [query, setQuery] = useState('');
@@ -49,6 +50,7 @@ const SearchPage = () => {
                                         type_of_ban: book.type_of_ban,
                                         state: book.state,
                                         district: book.district,
+                                        book_id: book.id,
                                     },
                                 }}
                                 className="result-link"
