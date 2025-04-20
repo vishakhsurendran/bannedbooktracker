@@ -32,10 +32,8 @@ export const handleFirebaseError = (errorCode) => {
           return "Invalid email address.";
         case "auth/weak-password":
           return "Password should be at least 6 characters.";
-        case "auth/user-not-found":
-          return "User not found.";
-         case "auth/wrong-password":
-          return "Incorrect password.";
+        case "auth/invalid-credential":
+          return "Email or password is invalid.";
         default:
           return "An unexpected error occurred. Please try again.";
       }

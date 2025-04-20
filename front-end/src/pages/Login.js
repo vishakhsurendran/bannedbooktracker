@@ -4,6 +4,8 @@ import "./Login.css"
 import { doSignIn, handleFirebaseError } from "../firebase/auth";
 import book_icon from "../pictures/book_icon.png"
 import { useAuth } from "../contexts/authContext";
+import {getAuth} from "firebase/auth";
+import { auth } from "../firebase/firebase";
 
 //written in part with help of tutorial at https://www.youtube.com/watch?v=WpIDez53SK4
 //and Nitij's react-firebase-auth-boilerplate at https://github.com/Nitij/react-firebase-auth-boilerplate/tree/main
@@ -24,6 +26,7 @@ function Login() {
         try {
             await doSignIn(email, password);
             console.log('Logging in with:', { email, password });
+            console.log(auth.currentUser.getIdToken());
             setIsSigningIn(true);
         } catch (err) {
             setErrorMessage(handleFirebaseError(err.code));
