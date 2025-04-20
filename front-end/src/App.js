@@ -13,58 +13,8 @@ import { Link } from 'react-router-dom';
 import { AuthProvider, useAuth } from "./contexts/authContext";
 import NavBar from "./components/NavBar";
 import Container from "react-bootstrap/Container";
-
-
-/*function App() {
-  return (
-      <AuthProvider>
-        <BrowserRouter>
-          <div>
-            <nav>
-              <Link to="/">Home</Link> |
-              <Link to="/login">Login</Link> |
-              <Link to="/signup">Sign Up</Link> |
-              <Link to="/reset">Forgot Password</Link> |
-              <Link to="/search">Search Page</Link> |
-              <Link to="/book-details">Book Details</Link> |
-              <Link to="/accounts">Accounts</Link> |
-              <Link to="/map">Map</Link> |
-              <Link to="/location-result">Location Result</Link>
-            </nav>
-            <Routes>
-              <Route exact path="/" element={<Home />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<SignUp />} />
-              <Route path="/reset" element={<ForgotPassword />} />
-              <Route path="/search" element={<SearchPage />} />
-              <Route path="/book-details" element={<BookDetails />} />
-              <Route path="/accounts" element={<Accounts />} />
-              <Route path="/map" element={<Map />} />
-              <Route path="/location-result" element={<LocationResult />} />
-            </Routes>
-          </div>
-        </BrowserRouter>
-      </AuthProvider>
-  );
-}
-export default App;*/
-
-
-/*function App() {
-  return (
-      <BrowserRouter>
-            <Routes>
-                <Route exact path="/login" element={<Login />} />
-                <Route path="/signup" element={<SignUp />} />
-                <Route path="/reset" element={<ForgotPassword />} />
-            </Routes>
-      </BrowserRouter>
-
-  );
-}
-
-export default App;*/
-
+import ReadingList from "./pages/ReadingList";
+import ReadingListDetails from "./pages/ReadingListDetails";
 function App() {
 
   return (
@@ -82,6 +32,8 @@ function App() {
                   <Route path="/accounts" element={<Accounts />} />
                   <Route path="/map" element={<Map />} />
                   <Route path="/location-result" element={<LocationResult />} />
+                  <Route path="/lists" element={<ReadingList />} />
+                  <Route path="/list-details" element={<ReadingListDetails />} />
               </Routes>
               </Container>
           </BrowserRouter>
