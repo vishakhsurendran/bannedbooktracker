@@ -12,6 +12,9 @@ const Accounts = () => {
 
     const [userInfo, setUserInfo] = useState([]);
     const [error, setError] = useState('');
+    const [editing, setEditing] = useState(false);
+    const [name, setName] = useState('');
+    const [location, setLocation] = useState('');
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -26,31 +29,76 @@ const Accounts = () => {
         fetchUser()
     }, []);
 
+    const handleSave = async() => {
+        try {
+            if (name !== userInfo.name) {
+                await apiClient.post('/user/change_user_name/', {
+                    token: auth.currentUser.stsTokenManager.accessToken,
+                    name: name,
+                })
+            }
+            if (location !== userInfo.location) {
+                await apiClient.post('/user/change_location/', {
+                    token: auth.currentUser.stsTokenManager.accessToken,
+                    location: location,
+                })
+            }
+            const response = await apiClient.post('/user/get_user/', {
+                user_id: auth.currentUser.uid
+            });
+            setUserInfo(response.data);
+            setEditing(false);
+        }
+        catch (err) {
+            setError(err.message);
+        }
+    };
+
   return (
       <div>
           {!userLoggedIn && (<Navigate to='/login' replace={true} />)}
-    <div className="accounts-page">
-      <div className="profile-picture">Profile Picture</div>
-      <div className="user-details">
-        <div className="user-field">
-          <label>Name:</label>
-          <div className="field-input">{userInfo.name}</div>
-        </div>
-        <div className="user-field">
-          <label>Location:</label>
-          <div className="field-input">{userInfo.location}</div>
-        </div>
-        <div className="user-field">
-          <label>Email:</label>
-          <div className="field-input">Email</div>
-        </div>
-      </div>
-      <div className="book-stats">
-        <p>Number of Banned Books Read: [#]</p>
-        <p>Currently Reading: [Book Title and Author]</p>
-      </div>
-        </div>
-        <LogoutButton/>
+        <div className="accounts-page">
+          <div className="user-details">
+            <div className="user-field">
+              <label>Name:</label>
+                {editing ? (
+                    <input
+                        type="text"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                    />
+                ) : (
+                    <div className="field-input">{userInfo.name}</div>
+                    )}
+                </div>
+                <div className="user-field">
+                  <label>Location:</label>
+                    {editing ? (
+                        <input
+                            type="text"
+                            value={location}
+                            onChange={(e) => setLocation(e.target.value)}
+                            />
+                    ) : (
+                        <div className="field-input">{userInfo.location}</div>
+                    )}
+                </div>
+                <div className="user-field">
+                  <label>Email:</label>
+                  <div className="field-input">Email is hidden</div>
+                </div>
+              </div>
+              <div className="book-stats">
+                <p>Number of Banned Books Read: [#]</p>
+                <p>Currently Reading: [Book Title and Author]</p>
+              </div>
+            {editing ? (
+                <button onClick={handleSave}>Save</button>
+            ) : (
+                <button onClick={() => setEditing(true)}>Edit</button>
+            )}
+                </div>
+                <LogoutButton/>
       </div>
   );
 };
