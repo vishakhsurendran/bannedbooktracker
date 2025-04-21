@@ -1,15 +1,18 @@
 import React, { useState, useRef } from 'react';
-import {Link, Navigate} from "react-router-dom";
+import {Link, Navigate} from "react-router";
 import "./Login.css"
-import { doSignIn } from "../firebase/auth";
+import { doSignIn, handleFirebaseError } from "../firebase/auth";
 import book_icon from "../pictures/book_icon.png"
 import { useAuth } from "../contexts/authContext";
+import {getAuth} from "firebase/auth";
+import { auth } from "../firebase/firebase";
 
 //written in part with help of tutorial at https://www.youtube.com/watch?v=WpIDez53SK4
 //and Nitij's react-firebase-auth-boilerplate at https://github.com/Nitij/react-firebase-auth-boilerplate/tree/main
 function Login() {
 
     //get logged in status
+
     const { userLoggedIn } = useAuth();
 
     //initialize variables
@@ -21,23 +24,28 @@ function Login() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (!isSigningIn) {
-            setIsSigningIn(true);
+        //call sign in function
+        try {
             await doSignIn(email, password);
+            console.log('Logging in with:', { email, password });
+            setIsSigningIn(true);
+        } catch (err) {
+            //populate error message on screen
+            setErrorMessage(handleFirebaseError(err.code));
+            console.log(err.code);
         }
-
-        console.log('Logging in with:', { email, password });
-        // After successful login, you might redirect the user or update the UI
     };
 
     return (
         <div>
-            {userLoggedIn && (<Navigate to='/' replace={true} />)}
+            {userLoggedIn && (<Navigate to='/accounts' replace={true} />)}
         <div className="login-container">
-            <img
-                src={book_icon}
-                alt="book logo"
-                className="login-form-image" />
+            <Link to="/">
+                <img
+                    src={book_icon}
+                    alt="book logo"
+                    className="login-form-image" />
+            </Link>
             <div>
                 <form onSubmit={handleSubmit} className="login-form">
                     <div>
@@ -61,14 +69,14 @@ function Login() {
                             value={password}
                             onChange={(e) => {setPassword(e.target.value)}}
                             required />
+                        {errorMessage && (
+                            <span className='errormessage'>{errorMessage}</span>
+                        )}
                         <Link to="/reset" style={{ textDecoration: 'none' }}>
                             <label className="login-form-hyperlink">FORGOT YOUR PASSWORD?</label>
                         </Link>
                         <div className="login-form-spacer"></div>
                     </div>
-                    {errorMessage && (
-                            <span className='errormessage'>{errorMessage}</span>
-                        )}
                     <button className="login-form-black-button" type="submit">SIGN IN</button>
                 </form>
                 <div className="login-form-div">

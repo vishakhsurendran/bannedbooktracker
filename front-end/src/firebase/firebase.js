@@ -1,8 +1,9 @@
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
 import {getFirestore} from "@firebase/firestore";
 import { getAuth } from "firebase/auth";
 
+//written with assistance of tutorial at https://www.youtube.com/watch?v=WpIDez53SK4
+//and firebase documentation at https://firebase.google.com/docs
 const firebaseConfig = {
   apiKey: "AIzaSyA0a-TVShIuVMLELFuQ_4uVyB7uBDxhgyE",
   authDomain: "banned-book-tracker.firebaseapp.com",
@@ -14,7 +15,6 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
 const auth = getAuth(app);
 const firestore = getFirestore(app);
 

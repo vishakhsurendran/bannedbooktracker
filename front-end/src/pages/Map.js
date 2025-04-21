@@ -1,6 +1,6 @@
 import React from 'react';
 import './Map.css';
-import {useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router";
 
 const Map = () => {
     const navigate = useNavigate();

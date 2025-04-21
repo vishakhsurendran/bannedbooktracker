@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import "./Login.css"
 import book_icon from "../pictures/book_icon.png";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 
     function ForgotPassword() {
         const [email, setEmail] = useState('');
@@ -15,11 +15,12 @@ import { Link } from "react-router-dom";
 
         return (
             <div className="login-container">
-                <img
-                    src={book_icon}
-                    alt="book logo"
-                    className="login-form-image" />
-
+                <Link to="/">
+                    <img
+                        src={book_icon}
+                        alt="book logo"
+                        className="login-form-image" />
+                </Link>
                 <div>
                     <form className="forgotpassword-form">
                         <div>
