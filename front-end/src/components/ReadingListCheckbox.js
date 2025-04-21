@@ -1,29 +1,38 @@
 import React, {useEffect, useState} from 'react';
 import apiClient from "../axios/axiosConfig";
 import { auth } from "../firebase/firebase";
+import {useAuth} from "../contexts/authContext";
 
 function ReadingListCheckbox({book}) {
 
     const [checkbox, setCheckbox] = useState(false);
     const [error, setError] = useState('')
 
+    //get user logged in state
+    const { userLoggedIn } = useAuth();
+
+    //if book is in reading list, mark checkbox automatically
     useEffect(() => {
         const handleCheckboxInitial = () => {
-            const uid = auth.currentUser.uid;
-            const response = apiClient.post('/user/get_reading_list/', {
-                user_id: uid
-                }).then(response =>{
+            if (userLoggedIn) {
+                const uid = auth.currentUser.uid;
+                const response = apiClient.post('/user/get_reading_list/', {
+                    user_id: uid
+                }).then(response => {
+                    //if returned array contains book id, book is in reading list
                     if (JSON.stringify(response).includes("\"id\":" + book.book_id)) {
-                    setCheckbox(true);
-                }
-                }).catch(err =>{
+                        setCheckbox(true);
+                    }
+                }).catch(err => {
                     console.log(err);
                 })
+            }
         }; handleCheckboxInitial()
     }, []);
 
      const handleCheckboxChange = async () => {
-        if (!checkbox) {
+         //if checkbox is not checked, call api and add to reading list upon click
+         if (!checkbox) {
             try {
                 const token = await auth.currentUser.getIdToken();
                 const response = await apiClient.post('/user/add_reading_list/', {
@@ -37,6 +46,7 @@ function ReadingListCheckbox({book}) {
                 console.log(error);
             }
         }
+        //if checkbox is checked, call api and remove book from reading list
         else if (checkbox) {
             try {
                 const token = await auth.currentUser.getIdToken();
@@ -54,7 +64,9 @@ function ReadingListCheckbox({book}) {
         setCheckbox(!checkbox);
     };
 
-     return (
+     //only return component if user logged in
+     if (userLoggedIn) {
+         return (
          <label>
              <input
                  type="checkbox"
@@ -63,6 +75,8 @@ function ReadingListCheckbox({book}) {
              />
              {checkbox ? 'Added to Reading List' : 'Add to Reading List'}
          </label>)
+     }
+
 }
 
 export default ReadingListCheckbox

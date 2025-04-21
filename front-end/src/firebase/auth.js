@@ -24,6 +24,7 @@ export const doPasswordChange = (password) => {
     return updatePassword(auth.currentUser, password);
 };
 
+//populate login/signup/forgotpassword error messages
 export const handleFirebaseError = (errorCode) => {
       switch (errorCode) {
         case "auth/email-already-in-use":

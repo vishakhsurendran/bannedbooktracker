@@ -23,12 +23,13 @@ function Login() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        //call sign in function
         try {
             await doSignIn(email, password);
             console.log('Logging in with:', { email, password });
-            console.log(auth.currentUser.getIdToken());
             setIsSigningIn(true);
         } catch (err) {
+            //populate error message on screen
             setErrorMessage(handleFirebaseError(err.code));
             console.log(err.code);
         }

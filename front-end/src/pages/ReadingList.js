@@ -1,13 +1,17 @@
 import React, {useEffect, useState} from 'react';
-import { Link } from 'react-router-dom';
+import {Link, Navigate} from 'react-router-dom';
 import apiClient from "../axios/axiosConfig";
 import { auth } from "../firebase/firebase";
 import './SearchPage.css'
+import {useAuth} from "../contexts/authContext";
 
 function ReadingList() {
     const [list, setList] = useState([]);
     const [error, setError] = useState('');
 
+    const { userLoggedIn } = useAuth();
+
+    //use uid to fetch list items for display on screen, if any
     useEffect(() => {
         const initializeList = async () => {
             try {
@@ -19,13 +23,15 @@ function ReadingList() {
                 setList(response.data);
             } catch (err) {
                 setError('Error fetching reading list.');
-                console.log(err.code);
+                console.log(error);
             }
         }; initializeList()
     }, []);
 
+    //print results and pass book data to list-details page
     return (
         <div className="results">
+            {!userLoggedIn && (<Navigate to='/accounts' replace={true} />)}
                 <h2>Reading List</h2>
                 {list.length > 0 ? (
                     list.map((book, index) => (

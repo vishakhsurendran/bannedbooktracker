@@ -1,4 +1,4 @@
-import {Link, useLocation} from 'react-router-dom';
+import {Link, useLocation, useNavigate} from 'react-router-dom';
 import React, {useState} from 'react';
 import "./NavBar.css";
 import Container from 'react-bootstrap/Container';
@@ -8,7 +8,6 @@ import book_icon from "../pictures/book_icon.png";
 import account_icon from "../pictures/account_icon.png";
 import message_icon from "../pictures/message_icon.png";
 import notif_icon from "../pictures/notif_icon.png";
-import { useNavigate } from 'react-router-dom';
 
 function NavBar() {
 
@@ -17,11 +16,12 @@ function NavBar() {
     const [query, setQuery] = useState('');
 
      // Array of paths where the navbar should be hidden
-    const noNavbar = ['/login', '/signup', '/reset', "/create-account"];
+    const noNavbar = ['/login', '/signup', '/reset'];
 
     // Check if the current path is in the noNavbarPaths array
     const shouldHideNavbar = noNavbar.includes(location.pathname);
 
+    //search on enter
     const handleKeyDown = (event) => {
         if (event.key === 'Enter' && query.trim()) {
             navigate(`/search?query=${encodeURIComponent(query)}`);

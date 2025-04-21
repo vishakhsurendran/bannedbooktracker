@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './SearchPage.css';
 import apiClient from "../axios/axiosConfig";
-import {auth} from "../firebase/firebase";
 import { useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 

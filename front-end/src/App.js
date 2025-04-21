@@ -1,6 +1,8 @@
 import React from 'react';
 import Login from './pages/Login';
 import { BrowserRouter, Routes, Route} from "react-router-dom";
+import { AuthProvider} from "./contexts/authContext";
+import Container from "react-bootstrap/Container";
 import ForgotPassword from "./pages/ForgotPassword";
 import SignUp from "./pages/SignUp";
 import SearchPage from "./pages/SearchPage";
@@ -9,12 +11,10 @@ import Accounts from "./pages/Accounts";
 import Map from "./pages/Map";
 import LocationResult from "./pages/LocationResult";
 import Home from "./pages/Home"
-import { Link } from 'react-router-dom';
-import { AuthProvider, useAuth } from "./contexts/authContext";
 import NavBar from "./components/NavBar";
-import Container from "react-bootstrap/Container";
 import ReadingList from "./pages/ReadingList";
 import ReadingListDetails from "./pages/ReadingListDetails";
+
 function App() {
 
   return (

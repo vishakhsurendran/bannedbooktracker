@@ -2,8 +2,6 @@ import './BookDetails.css';
 import React, {useEffect, useState} from 'react';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import apiClient from "../axios/axiosConfig";
-import { auth } from "../firebase/firebase";
 import ReadingListCheckbox from "../components/ReadingListCheckbox";
 
 const BookDetails = () => {
@@ -11,6 +9,11 @@ const BookDetails = () => {
     const { book } = location.state || {};
     const navigate = useNavigate();
     const [error, setError] = useState('')
+
+    const handleClick = (event) => {
+        const query = book.title;
+        navigate(`/search?query=${encodeURIComponent(query)}`);
+    }
 
     if (!book) {
         return <p>No book data available.</p>
@@ -23,7 +26,8 @@ const BookDetails = () => {
             <p><strong>State:</strong> {book.state}</p>
             <p><strong>District:</strong> {book.district}</p>
             <ReadingListCheckbox book={book}/>
-            <button onClick={() => navigate('/search')}>Go Back to Search</button>
+            <div className="login-form-spacer"></div>
+            <button onClick={handleClick}>Go Back to Search</button>
         </div>
     );
 };

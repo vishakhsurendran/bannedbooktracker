@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import "./Login.css"
 import book_icon from "../pictures/book_icon.png"
-import {Link, Navigate, redirect} from "react-router-dom";
-import {doCreateUser, doSignIn, handleFirebaseError} from "../firebase/auth";
+import {Link, Navigate} from "react-router-dom";
+import {doCreateUser, handleFirebaseError} from "../firebase/auth";
 import { useAuth } from "../contexts/authContext";
 import apiClient from "../axios/axiosConfig";
 import { auth } from "../firebase/firebase";
@@ -22,17 +22,21 @@ function SignUp() {
         const handleSubmit = async (e) => {
             e.preventDefault();
 
+            //reset error message
             setErrorMessage("");
 
             if(!isRegistering) {
                 try {
+                    //check for matching passwords
                     if (password !== confirmPassword) {
                     setErrorMessage("Passwords do not match!")
                     }
                     else {
+                        //create new user, checking existing users
                         await doCreateUser(email, password);
                         console.log('Logging in with:', { email, password });
 
+                        //create user tuple in database
                         const token = await auth.currentUser.getIdToken();
                         await apiClient.post('/user/add_user/', {
                         token: token,

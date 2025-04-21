@@ -8,6 +8,7 @@ function LogoutButton({ onLogout }) {
     //retrieve current auth state
     const auth = getAuth();
 
+    //sign out on click
     const handleLogout = async () => {
       try {
         await doSignOut();
