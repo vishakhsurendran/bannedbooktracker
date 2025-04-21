@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import './Accounts.css';
 import { useAuth } from "../contexts/authContext";
-import {Navigate} from "react-router-dom";
+import {Navigate} from "react-router";
 import LogoutButton from "../components/LogoutButton";
 import apiClient from "../axios/axiosConfig";
 import { auth} from "../firebase/firebase";

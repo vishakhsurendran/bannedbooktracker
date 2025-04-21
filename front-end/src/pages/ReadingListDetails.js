@@ -1,7 +1,7 @@
 import './BookDetails.css';
 import React from 'react';
-import {Navigate, useLocation} from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import {Navigate, useLocation} from 'react-router';
+import { useNavigate } from 'react-router';
 import ReadingListCheckbox from "../components/ReadingListCheckbox";
 import ReadCheckbox from "../components/ReadCheckbox";
 import {useAuth} from "../contexts/authContext";

@@ -1,4 +1,4 @@
-import {Link, useLocation, useNavigate} from 'react-router-dom';
+import {BrowserRouter, Link, Router, useLocation, useNavigate} from 'react-router';
 import React, {useState} from 'react';
 import "./NavBar.css";
 import Container from 'react-bootstrap/Container';

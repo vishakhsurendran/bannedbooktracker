@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import {Link, Navigate} from "react-router-dom";
+import {Link, Navigate} from "react-router";
 import "./Login.css"
 import { doSignIn, handleFirebaseError } from "../firebase/auth";
 import book_icon from "../pictures/book_icon.png"
@@ -12,6 +12,7 @@ import { auth } from "../firebase/firebase";
 function Login() {
 
     //get logged in status
+
     const { userLoggedIn } = useAuth();
 
     //initialize variables

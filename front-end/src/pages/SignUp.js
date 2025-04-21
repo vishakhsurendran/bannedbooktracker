@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import "./Login.css"
 import book_icon from "../pictures/book_icon.png"
-import {Link, Navigate} from "react-router-dom";
+import {Link, Navigate} from "react-router";
 import {doCreateUser, handleFirebaseError} from "../firebase/auth";
 import { useAuth } from "../contexts/authContext";
 import apiClient from "../axios/axiosConfig";

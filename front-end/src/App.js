@@ -1,7 +1,6 @@
 import React from 'react';
 import Login from './pages/Login';
-import { BrowserRouter, Routes, Route} from "react-router-dom";
-import { AuthProvider} from "./contexts/authContext";
+import { BrowserRouter, Routes, Route} from "react-router";
 import Container from "react-bootstrap/Container";
 import ForgotPassword from "./pages/ForgotPassword";
 import SignUp from "./pages/SignUp";
@@ -18,9 +17,8 @@ import ReadingListDetails from "./pages/ReadingListDetails";
 function App() {
 
   return (
-      <AuthProvider>
-          <BrowserRouter>
-              <NavBar />
+      <div>
+          <NavBar />
               <Container>
               <Routes>
                   <Route exact path="/" element={<Home />} />
@@ -36,8 +34,7 @@ function App() {
                   <Route path="/list-details" element={<ReadingListDetails />} />
               </Routes>
               </Container>
-          </BrowserRouter>
-      </AuthProvider>
+      </div>
   );
 }
 

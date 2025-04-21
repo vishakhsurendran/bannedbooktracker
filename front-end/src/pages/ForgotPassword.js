@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import "./Login.css"
 import book_icon from "../pictures/book_icon.png";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 
     function ForgotPassword() {
         const [email, setEmail] = useState('');

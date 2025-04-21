@@ -10,7 +10,7 @@ import hate_u_give from "../pictures/hate_u_give.jpg"
 import poet_x from "../pictures/poet_x.jpg"
 import slaughterhouse from "../pictures/slaughterhouse.jpg"
 import this_book from "../pictures/this_book.jpg"
-import {Link} from "react-router-dom";
+import {Link} from "react-router";
 
 function Home() {
 

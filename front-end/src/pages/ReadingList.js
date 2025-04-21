@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Link, Navigate} from 'react-router-dom';
+import {Link, Navigate} from 'react-router';
 import apiClient from "../axios/axiosConfig";
 import { auth } from "../firebase/firebase";
 import './SearchPage.css'
@@ -57,7 +57,7 @@ function ReadingList() {
                         </div>
                     ))
                 ) : (
-                    <p>No results found.</p>
+                    <p>Add something to your list!</p>
                 )}
             </div>
     )

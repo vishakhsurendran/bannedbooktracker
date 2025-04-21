@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import './SearchPage.css';
 import apiClient from "../axios/axiosConfig";
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router';
 import { useEffect } from 'react';
 
 const SearchPage = () => {
