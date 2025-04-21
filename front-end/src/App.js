@@ -14,7 +14,7 @@ import { AuthProvider } from "./contexts/authContext";
 import NavBar from "./components/NavBar";
 
 
-function App() {
+/*function App() {
   return (
       <AuthProvider>
         <BrowserRouter>
@@ -46,7 +46,7 @@ function App() {
       </AuthProvider>
   );
 }
-export default App;
+export default App;*/
 
 
 /*function App() {
@@ -63,3 +63,13 @@ export default App;
 }
 
 export default App;*/
+
+function App() {
+  return (
+      <AuthProvider>
+        <NavBar />
+      </AuthProvider>
+  );
+}
+
+export default App;

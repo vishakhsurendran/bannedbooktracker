@@ -8,9 +8,11 @@
     font-family: Inter, sans-serif, bold;
     margin: 10px;
     font-size: large;
-    align-items: flex-end;
+    align-self: flex-end;
     padding-left: 10px;
     padding-right: 10px;
+    color: #363636;
+    text-decoration: none;
 }
 
 .navbar-link:hover {
@@ -34,4 +36,23 @@
     border: 1px solid gray;
     border-radius: 20px;
     background-color: #ffffff;
+    align-self: flex-end;
+    margin: 10px;
 }
+
+.icon {
+    width: 35px;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin: 10px;
+    align-self: flex-end;
+}
+
+.spacer {
+    padding-left: 25px
+}
+
+.spacer2 {
+    padding-left: 200px;
+}
+

@@ -1,25 +1,68 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './SearchPage.css';
+import apiClient from "../axios/axiosConfig";
 
 const SearchPage = () => {
-  return (
-    <div className="search-page">
-      <h1 className="search-title">Search</h1>
-      <div className="search-bar">
-        <input type="text" placeholder="Search by Title, Author, or ISBN" />
-        <button>Search</button>
-      </div>
-      <div className="results">
-        <h2>Results</h2>
-        <div className="result-item">
-          <Link to="/book-details" className="result-link">
-            Book Title and Author
-          </Link>
+    const [query, setQuery] = useState('');
+    const [results, setResults] = useState([]);
+    const [error, setError] = useState('');
+
+    const handleSearch = async () => {
+        if (!query.trim()) {
+            setError('Please enter a search term.');
+            return;
+        }
+        setError('');
+        try {
+            const response = await apiClient.post('/books/title/', { title: query });
+            setResults(response.data);
+        } catch (err) {
+            setError('Error fetching search results.');
+            console.error('Search Error:', err.response?.data || err.message);
+        }
+    };
+
+    return (
+        <div>
+            <input
+                type="text"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Search for a book by title"
+            />
+            <button onClick={handleSearch}>Search</button>
+            {error && <p className="error-message">{error}</p>}
+            <div className="results">
+                <h2>Results</h2>
+                {results.length > 0 ? (
+                    results.map((book, index) => (
+                        <div key={index} className="result-item">
+                            <Link
+                                to={{
+                                    pathname: `/book-details`,
+                                }}
+                                state={{
+                                    book: {
+                                        title: book.title,
+                                        author: book.author,
+                                        type_of_ban: book.type_of_ban,
+                                        state: book.state,
+                                        district: book.district,
+                                    },
+                                }}
+                                className="result-link"
+                            >
+                                {book.title} by {book.author} in {book.state}
+                            </Link>
+                        </div>
+                    ))
+                ) : (
+                    <p>No results found.</p>
+                )}
+            </div>
         </div>
-      </div>
-    </div>
-  );
+    );
 };
 
 export default SearchPage;
