@@ -77,7 +77,7 @@ function Login() {
                         </Link>
                         <div className="login-form-spacer"></div>
                     </div>
-                    <button className="login-form-black-button" type="submit">SIGN IN</button>
+                    <button className="login-form-black-button" type="submit" name="SIGN IN" role="button">SIGN IN</button>
                 </form>
                 <div className="login-form-div">
                     <label className="login-form-text">NEW TO BANNED BOOK TRACKER?</label>

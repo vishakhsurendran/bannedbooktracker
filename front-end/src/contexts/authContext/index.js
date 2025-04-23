@@ -14,9 +14,9 @@ export function AuthProvider ({children}) {
     const [userLoggedIn, setUserLoggedIn] = useState(false);
     const [loading, setLoading] = useState(true);
 
-    useEffect(() =>{
+    /*useEffect(() =>{
         const unsubscribe = onAuthStateChanged(auth, initializeUser);
-        }, [])
+        }, [])*/
 
     //check if user exists and is logged in
     async function initializeUser(user) {
