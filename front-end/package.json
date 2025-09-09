@@ -8,6 +8,7 @@
     "axios": "^1.8.4",
     "bootstrap": "^5.3.4",
     "firebase": "^11.6.0",
+    "firebase-mock": "^2.3.2",
     "react": "^19.1.0",
     "react-bootstrap": "^2.10.9",
     "react-dom": "^19.1.0",
@@ -48,5 +49,10 @@
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.3.0",
     "jest": "^27.5.1"
+  },
+  "jest": {
+    "transformIgnorePatterns": [
+      "node_modules/(?!axios)/"
+    ]
   }
 }
